@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformer/Content/Tileset.png</SourceFile>
+  <SourceFile>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Tileset.png</SourceFile>
   <SourceTime>2016-03-17T15:20:22.0488886+11:00</SourceTime>
-  <DestFile>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformer/Content/bin/DesktopGL/Tileset.xnb</DestFile>
-  <DestTime>2018-04-09T18:12:26.3883939+10:00</DestTime>
+  <DestFile>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/bin/DesktopGL/Tileset.xnb</DestFile>
+  <DestTime>2018-04-09T21:01:11.9255778+10:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-02T02:05:36+11:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
