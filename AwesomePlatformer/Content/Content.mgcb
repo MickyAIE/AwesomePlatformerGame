@@ -50,7 +50,7 @@
 /processorParam:TextureFormat=Color
 /build:adventurer_stand.png
 
-#begin Tileset.png
+#begin platformerPack_industrial_tilesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -60,7 +60,17 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tileset.png
+/build:platformerPack_industrial_tilesheet.png
+
+#begin Level2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Level2.tmx
+
+#begin Level3.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Level3.tmx
 
 #begin Level1.tmx
 /importer:TiledMapImporter

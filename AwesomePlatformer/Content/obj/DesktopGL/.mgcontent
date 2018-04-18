@@ -7,7 +7,9 @@
     <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/adventurer_walk1.png</File>
     <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/adventurer_walk2.png</File>
     <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/adventurer_stand.png</File>
-    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Tileset.png</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/platformerPack_industrial_tilesheet.png</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Level2.tmx</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Level3.tmx</File>
     <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Level1.tmx</File>
   </SourceFiles>
 </SourceFileCollection>

@@ -1,6 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using MonoGame.Extended.Tiled;
+using MonoGame.Extended.Tiled.Graphics;
+using MonoGame.Extended.ViewportAdapters;
+using System;
 
 // New Thing
 
@@ -11,11 +16,47 @@ namespace AwesomePlatformer
     /// </summary>
     public class Game1 : Game
     {
+        public static int tile = 70;
+        // abitrary choice for 1m (1 tile = 1 meter)
+        public static float meter = tile;
+        // very exaggerated gravity (6x)
+        public static float gravity = meter * 9.8f * 6.0f;
+        // max vertical speed (10 tiles/sec horizontal, 15 tiles/sec vertical)
+        public static Vector2 maxVelocity = new Vector2(meter * 10, meter * 15);
+        // horizontal acceleration -  take 1/2 second to reach max velocity
+        public static float acceleration = maxVelocity.X * 2;
+        // horizontal friction - take 1/6 second to stop from max velocity
+        public static float friction = maxVelocity.X * 6;
+        // (a large) instantaneous jump impulse
+        public static float jumpImpulse = meter * 1500;
+
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Player player = new Player();
-        
+        Player player = null;
+
+        Camera2D camera = null;
+        TiledMap map = null;
+        TiledMapRenderer mapRenderer = null;
+        TiledMapTileLayer collisionLayer;
+
+        public int ScreenWidth
+        {
+            get
+            {
+                return graphics.GraphicsDevice.Viewport.Width;
+            }
+        }
+
+        public int ScreenHeight
+        {
+            get
+            {
+                return graphics.GraphicsDevice.Viewport.Height;
+            }
+        }
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -31,7 +72,7 @@ namespace AwesomePlatformer
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            player = new Player(this);
             base.Initialize();
         }
 
@@ -45,7 +86,23 @@ namespace AwesomePlatformer
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            player.Load(Content);                        
+            player.Load(Content);
+
+            BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, ScreenWidth, ScreenHeight);
+
+            camera = new Camera2D(viewportAdapter);
+            camera.Position = new Vector2(0,ScreenHeight);
+
+            map = Content.Load<TiledMap>("Level1");
+            mapRenderer = new TiledMapRenderer(GraphicsDevice);
+
+            foreach (TiledMapTileLayer layer in map.TileLayers)
+            {
+                if (layer.Name == "Playable")
+                {
+                    collisionLayer = layer;
+                }
+            }
         }
 
         /// <summary>
@@ -64,13 +121,16 @@ namespace AwesomePlatformer
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             // TODO: Add your update logic here
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             player.Update(deltaTime);
-            //camera.Move(new Vector2(0, -50) * deltaTime);
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
+            camera.Zoom = 0.5f;
+
             base.Update(gameTime);
         }
 
@@ -83,13 +143,59 @@ namespace AwesomePlatformer
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            
+            Matrix viewMatrix = camera.GetViewMatrix();
+            Matrix projectionMatrix = Matrix.CreateOrthographicOffCenter(0,GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0f, 0f, -1f);
+
+            spriteBatch.Begin(transformMatrix: viewMatrix);
+
+            mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
+
             player.Draw(spriteBatch);
 
             spriteBatch.End();
             
             base.Draw(gameTime);
         }
+
+        public int PixelToTile(float pixelCoord)
+        {
+            return (int)Math.Floor(pixelCoord / tile);
+        }
+
+        public int TileToPixel(int tileCoord)
+        {
+            return tile * tileCoord;
+        }
+
+        public int CellAtPixelCoord(Vector2 pixelCoords)
+        {
+            if (pixelCoords.X < 0 || pixelCoords.X > map.WidthInPixels || pixelCoords.Y < 0)
+            {
+                return 1;
+            }
+            if (pixelCoords.Y > map.HeightInPixels)
+            {
+                return 0;
+            }
+            return CellAtTileCoord(PixelToTile(pixelCoords.X),PixelToTile(pixelCoords.Y));
+        }
+
+        public int CellAtTileCoord(int tx, int ty)
+        {
+            if (tx < 0 || tx >= map.Width || ty < 0)
+            {
+                return 1;
+            }
+            if (ty >= map.Height)
+            {
+                return 0;
+            }
+
+            TiledMapTile? tile;
+            collisionLayer.TryGetTile(tx, ty, out tile);
+            return tile.Value.GlobalIdentifier;
+
+        }
+
     }
 }
