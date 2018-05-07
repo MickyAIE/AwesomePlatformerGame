@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections;
 
 namespace AwesomePlatformer
 {
@@ -13,14 +16,46 @@ namespace AwesomePlatformer
         bool isFalling = true;
         bool isJumping = false;
 
+        SoundEffect jumpSound;
+        SoundEffectInstance jumpSoundInstance;
+
+        SoundEffect landSound;
+        SoundEffectInstance landSoundInstance;
+
         Vector2 velocity = Vector2.Zero;
-        Vector2 positon = Vector2.Zero;
+        Vector2 positon = Vector2.Zero; //Vector2.Zero;
+
+        bool autoJump = true;
+
+        public Vector2 Velocity
+        {
+            get { return velocity; }
+        }
+
+        public Rectangle Bounds
+        {
+            get { return sprite.Bounds; }
+        }
+
+        public bool IsJumping
+        {
+            get { return isJumping; }
+        }
+
+        public void JumpOnCollision()
+        {
+            autoJump = true;
+        }
 
         public Vector2 Position
         {
             get
             {
                 return sprite.position;
+            }
+            set
+            {
+                sprite.position = value;
             }
         }
 
@@ -35,13 +70,29 @@ namespace AwesomePlatformer
 
         public void Load(ContentManager content)
         {
-            sprite.Load(content, "adventurer_stand");
+            //sprite.Load(content, "adventurer_stand");
+
+            AnimatedTexture animation = new AnimatedTexture(Vector2.Zero,0,1,1);
+            animation.Load(content, "walk", 12, 20);
+
+            jumpSound = content.Load<SoundEffect>("SFX/Jump");
+            jumpSoundInstance = jumpSound.CreateInstance();
+
+            landSound = content.Load<SoundEffect>("SFX/Land");
+            landSoundInstance = landSound.CreateInstance();
+
+            jumpSoundInstance.Volume = 0.5f;
+
+            sprite.Add(animation, 0, -5);
+            sprite.Pause();
         }
 
         public void Update(float deltaTime)
         {
             UpdateInput(deltaTime);
             sprite.Update(deltaTime);
+
+            //Console.WriteLine(Position);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -62,6 +113,8 @@ namespace AwesomePlatformer
             if (Keyboard.GetState().IsKeyDown(Keys.Left) == true)
             {
                 acceleration.X -= Game1.acceleration;
+                sprite.SetFlipped(true);
+                sprite.Play();
             }
             else if (wasMovingLeft == true)
             {
@@ -71,16 +124,20 @@ namespace AwesomePlatformer
             if (Keyboard.GetState().IsKeyDown(Keys.Right) == true)
             {
                 acceleration.X += Game1.acceleration;
+                sprite.SetFlipped(false);
+                sprite.Play();
             }
             else if (wasMovingRight == true)
             {
                 acceleration.X -= Game1.friction;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up) == true && this.isJumping == false && falling == false)
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) == true && this.isJumping == false && falling == false || autoJump == true)
             {
+                autoJump = false;
                 acceleration.Y -= Game1.jumpImpulse;
                 this.isJumping = true;
+                jumpSoundInstance.Play();
             }
 
             velocity += acceleration * deltaTime;
@@ -93,6 +150,7 @@ namespace AwesomePlatformer
             if ((wasMovingLeft && (velocity.X > 0)) || (wasMovingRight && (velocity.X < 0)))
             {
                 velocity.X = 0;
+                sprite.Pause();
             }
 
             // collision detection
@@ -110,7 +168,7 @@ namespace AwesomePlatformer
             bool ny = (sprite.position.Y) % Game1.tile != 0;
             bool cell = game.CellAtTileCoord(tx, ty) != 0;
             bool cellright = game.CellAtTileCoord(tx + 1, ty) != 0;
-            bool celldown = game.CellAtTileCoord(tx, ty + 2) != 0;
+            bool celldown = game.CellAtTileCoord(tx, ty + 1) != 0;
             bool celldiag = game.CellAtTileCoord(tx + 1, ty + 1) != 0;
 
             // If the player has vertical velocity, then check to see if they have hit
@@ -151,6 +209,7 @@ namespace AwesomePlatformer
                     // we just hit
                     sprite.position.X = game.TileToPixel(tx);
                     this.velocity.X = 0;      // stop horizontal velocity
+                    sprite.Pause();
                 }
             }
             else if (this.velocity.X < 0)
@@ -161,6 +220,7 @@ namespace AwesomePlatformer
                     // we just hit
                     sprite.position.X = game.TileToPixel(tx + 1);
                     this.velocity.X = 0;      // stop horizontal velocity
+                    sprite.Pause();
                 }
             }
 
@@ -170,5 +230,6 @@ namespace AwesomePlatformer
             this.isFalling = !(celldown || (nx && celldiag));
 
         }
+
     }
 }

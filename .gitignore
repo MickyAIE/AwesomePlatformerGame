@@ -1,0 +1,7 @@
+.vs/AwesomePlatformer/v15/.suo
+.vs/slnx.sqlite
+*.ide
+.vs/VSWorkspaceState.json
+*.exe
+AwesomePlatformer/bin/DesktopGL/AnyCPU/Debug/AwesomePlatformer.pdb
+AwesomePlatformer/bin/DesktopGL/AnyCPU/Debug/Content/Mons 1.xnb

@@ -60,5 +60,18 @@ D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatforme
 D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\obj\Debug\AwesomePlatformer.exe
 D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\obj\Debug\AwesomePlatformer.pdb
 D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\platformerPack_industrial_tilesheet.xnb
-D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Level2.xnb
-D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Level3.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\walk.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Arial.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Heart.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\SFX\Jump.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Music\SuperHero_original.ogg
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Music\SuperHero_original.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Music\SuperHero_original_no_Intro.ogg
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Music\SuperHero_original_no_Intro.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Music\Superhero_violin.ogg
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Music\Superhero_violin.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Music\Superhero_violin_no_intro.ogg
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Music\Superhero_violin_no_intro.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\SFX\Land.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\diamond.xnb
+D:\AIE\2018\GPF Cert II\AwesomePlatformer\AwesomePlatformerGame\AwesomePlatformer\bin\DesktopGL\AnyCPU\Debug\Content\Mons 1.xnb

@@ -8,8 +8,17 @@
     <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/adventurer_walk2.png</File>
     <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/adventurer_stand.png</File>
     <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/platformerPack_industrial_tilesheet.png</File>
-    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Level2.tmx</File>
-    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Level3.tmx</File>
     <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Level1.tmx</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/walk.png</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Arial.spritefont</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Heart.png</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Music/SuperHero_original.ogg</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Music/SuperHero_original_no_Intro.ogg</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Music/Superhero_violin.ogg</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Music/Superhero_violin_no_intro.ogg</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/SFX/Jump.wav</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/SFX/Land.wav</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/diamond.png</File>
+    <File>D:/AIE/2018/GPF Cert II/AwesomePlatformer/AwesomePlatformerGame/AwesomePlatformer/Content/Mons 1.png</File>
   </SourceFiles>
 </SourceFileCollection>

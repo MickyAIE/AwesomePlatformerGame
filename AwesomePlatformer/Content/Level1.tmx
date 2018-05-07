@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="70" tileheight="70" infinite="0" nextobjectid="1">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="70" tileheight="70" infinite="0" nextobjectid="24">
  <tileset firstgid="1" name="Industrial" tilewidth="70" tileheight="70" tilecount="112" columns="14">
   <image source="platformerPack_industrial_tilesheet.png" width="980" height="560"/>
  </tileset>
@@ -211,6 +211,24 @@
 5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,5,5,5,5,5,0,0,0,5,5,5,5,5,0,0,0,2,3,3,3,3,3
 </data>
  </layer>
+ <objectgroup color="#ff0000" name="Enemies">
+  <object id="3" x="3676" y="6537.33"/>
+  <object id="11" x="5072" y="6614.67"/>
+  <object id="12" x="5634.67" y="6610.67"/>
+  <object id="13" x="6196" y="6686.67"/>
+ </objectgroup>
+ <objectgroup color="#ffff00" name="Loot">
+  <object id="14" x="1432" y="6682.67"/>
+  <object id="15" x="2624" y="6541.33"/>
+  <object id="16" x="2689.33" y="6546.67"/>
+  <object id="18" x="2760" y="6544"/>
+  <object id="19" x="4860" y="6337.33"/>
+  <object id="20" x="5497.33" y="6682.67"/>
+  <object id="21" x="6334.67" y="6758.67"/>
+ </objectgroup>
+ <objectgroup color="#0055ff" name="Goal">
+  <object id="23" x="6888" y="6822.67"/>
+ </objectgroup>
  <layer name="Hurt" width="100" height="100" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

@@ -1,11 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
 using MonoGame.Extended.ViewportAdapters;
 using System;
+using System.Collections.Generic;
 
 // New Thing
 
@@ -26,15 +28,25 @@ namespace AwesomePlatformer
         // horizontal acceleration -  take 1/2 second to reach max velocity
         public static float acceleration = maxVelocity.X * 2;
         // horizontal friction - take 1/6 second to stop from max velocity
-        public static float friction = maxVelocity.X * 6;
+        public static float friction = maxVelocity.X * 6f;
         // (a large) instantaneous jump impulse
         public static float jumpImpulse = meter * 1500;
 
+        List<Enemy> enemies = new List<Enemy>();
+        Sprite gem = null;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         Player player = null;
+
+        Song gameMusic;
+
+        SpriteFont arialFont;
+        int score = 0;
+        int lives = 3;
+
+        Texture2D heartImage = null;
 
         Camera2D camera = null;
         TiledMap map = null;
@@ -73,6 +85,7 @@ namespace AwesomePlatformer
         {
             // TODO: Add your initialization logic here
             player = new Player(this);
+            player.Position = new Vector2(200, 6700);
             base.Initialize();
         }
 
@@ -86,7 +99,20 @@ namespace AwesomePlatformer
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            //AIE.StateManager.CreateState("Splash", new SplashState());
+            //AIE.StateManager.CreateState("Game", new GameState());
+            //AIE.StateManager.CreateState("GameOver", new GameOverState());
+
+            //AIE.StateManager.PushState("Splash");
+
             player.Load(Content);
+
+            arialFont = Content.Load<SpriteFont>("Arial");
+            heartImage = Content.Load<Texture2D>("Heart");
+
+            gameMusic = Content.Load<Song>("Music/SuperHero_original_no_Intro");
+            MediaPlayer.Volume = 0.5f;
+            MediaPlayer.Play(gameMusic);
 
             BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, ScreenWidth, ScreenHeight);
 
@@ -103,6 +129,38 @@ namespace AwesomePlatformer
                     collisionLayer = layer;
                 }
             }
+
+            foreach (TiledMapObjectLayer layer in map.ObjectLayers)
+            {
+                if (layer.Name == "Enemies")
+                {
+                    foreach (TiledMapObject obj in layer.Objects)
+                    {
+                        Enemy enemy = new Enemy(this);
+                        enemy.Load(Content);
+                        enemy.Position = new Vector2(obj.Position.X,obj.Position.Y);
+                        enemies.Add(enemy);
+                    }
+                }
+
+                if (layer.Name == "Loot")
+                {
+                    TiledMapObject obj = layer.Objects[0];
+
+                    if (obj != null)
+                    {
+                        AnimatedTexture anim = new AnimatedTexture(Vector2.Zero, 0,1,1);
+                        anim.Load(Content,"diamond",1,1);
+
+                        gem = new Sprite();
+                        gem.Add(anim,0,5);
+                        gem.position = new Vector2(obj.Position.X, obj.Position.Y);
+                    }
+
+                }
+
+            }
+
         }
 
         /// <summary>
@@ -128,8 +186,17 @@ namespace AwesomePlatformer
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            //AIE.StateManager.Update(Content, gameTime);
+
+            foreach (Enemy e in enemies)
+            {
+                e.Update(deltaTime);
+            }
+
             camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
-            camera.Zoom = 0.5f;
+            camera.Zoom = 0.4f;
+
+            CheckCollisions();
 
             base.Update(gameTime);
         }
@@ -142,15 +209,31 @@ namespace AwesomePlatformer
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            //AIE.StateManager.Draw(spriteBatch);
+
             // TODO: Add your drawing code here
             Matrix viewMatrix = camera.GetViewMatrix();
             Matrix projectionMatrix = Matrix.CreateOrthographicOffCenter(0,GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0f, 0f, -1f);
 
             spriteBatch.Begin(transformMatrix: viewMatrix);
+                mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
+                player.Draw(spriteBatch);
+                foreach (Enemy e in enemies)
+                {
+                    e.Draw(spriteBatch);
+                }
+                gem.Draw(spriteBatch);
 
-            mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
+            spriteBatch.End();
 
-            player.Draw(spriteBatch);
+            spriteBatch.Begin();
+
+                spriteBatch.DrawString(arialFont, "Score: " + score.ToString(), new Vector2(20,20), Color.Orange);
+
+                for (int i = 0; i < lives; i++)
+                {
+                    spriteBatch.Draw(heartImage,new Vector2(ScreenWidth - 80 - i*16, 16 ), Color.White );
+                }
 
             spriteBatch.End();
             
@@ -196,6 +279,41 @@ namespace AwesomePlatformer
             return tile.Value.GlobalIdentifier;
 
         }
+
+        private void CheckCollisions()
+        {
+            foreach (Enemy e in enemies)
+            {
+                if (IsColliding(player.Bounds, e.Bounds) == true)
+                {
+                    if (player.IsJumping && player.Velocity.Y > 0)
+                    {
+                        player.JumpOnCollision();
+                        enemies.Remove(e);
+                        break;
+                    }
+                    else
+                    {
+                        // player just died
+                    }
+                }
+            }
+        }
+
+        private bool IsColliding(Rectangle rect1, Rectangle rect2)
+        {
+            if (rect1.X + rect1.Width < rect2.X ||
+                rect1.X > rect2.X + rect2.Width ||
+                rect1.Y + rect1.Height < rect2.Y ||
+                rect1.Y > rect2.Y + rect2.Height)
+            {
+                // these two rectangles are not colliding
+                return false;
+            }
+            // else, the two AABB rectangles overlap, therefore collision
+            return true;
+        }
+
 
     }
 }
